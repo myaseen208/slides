@@ -1,0 +1,456 @@
+---
+title: "[*An Introduction to `R` Programming Language*]{.yellow}"
+subtitle: "[*Data -> Information -> Knowledge -> Wisdom*]"
+author: "Muhammad Yaseen <br> ([https://myaseen208.com/](https://myaseen208.com/))"
+#institute: ADB/BISP
+date: ""
+date-format: long
+format:
+  revealjs:
+    mainfont: Latin Modern Roman
+    sansfont: Latin Modern Roman
+    smaller: false
+    scrollable: true
+    slide-number: true
+    toc: true
+    toc_float: true
+    toc-depth: 1
+    toc-location: body
+    toc-title: "Contents"
+    theme: [custom.scss]
+#    theme: [simple, custom.css, custom.scss]
+    # title-slide-attributes:
+    #   data-background-image: "images/uos.png"
+    #   data-background-size: 45%
+    #   data-background-position: 98% 90%
+    #   data-background-color: "#9fe0da"
+    default-image-extension: svg
+    tbl-cap-location: top
+    fig-width: 8
+    fig-height: 6
+    fig-align: center
+    fig_caption: true
+    fig-cap-location: bottom
+    fig-format: svg
+    out.width: 100%
+#    bibliography: "./bibliography/Bib.bib"
+    nocite: '@*'
+    chalkboard: 
+      buttons: false
+    preview-links: auto
+  # logo: images/quarto.png
+    css: custom.css
+    footer: $\color{green}{\textit{Muhammad Yaseen, PhD (Statistics, UNL-USA)}}$,  ([$\color{red}{https://myaseen208.com/}$](https://myaseen208.com/))
+execute:
+  echo: false
+  message: false
+  warning: false
+---
+
+```{r}
+#| include: false
+library(tidyverse)
+library(httr)
+clrs    <- MetBrewer::met.brewer(name = "Java")
+clrs_lt <- colorspace::lighten(clrs, 0.9)
+knitr::opts_chunk$set(fig.retina = 3, collapse = TRUE)
+options(digits = 3, width = 75)
+```
+
+
+```{r}
+#| label: load_refs
+#| include: false
+#| cache: false
+library(RefManageR)
+BibOptions(
+    check.entries = FALSE
+  , bib.style     = "authoryear"
+  , cite.style    = "alphabetic"
+  , style         = "markdown"
+  , hyperlink     = FALSE
+  , dashed        = FALSE
+  )
+myBib <- ReadBib("./bibliography/R_Bib.bib", check = FALSE)
+NoCite(bib = myBib)
+```
+
+
+# *Motivation* {background-color="`r clrs_lt[1]`"}
+
+## *2009 New York Times Article* {background-color="`r clrs_lt[6]`"}
+![](images/RNewYorkTimes.png){fig-align="center" width="100%"}
+
+
+
+## *Springer* {background-color="`r clrs_lt[6]`"}
+![](images/UseRSpringer.png){fig-align="center" width="100%"}
+
+
+## *Wiley* {background-color="`r clrs_lt[6]`"}
+![](images/RWiley.png){fig-align="center" width="100%"}
+
+
+## *CRC* {background-color="`r clrs_lt[6]`"}
+![](images/RCRC.png){fig-align="center" width="100%"}
+
+
+## *O’Reilly* {background-color="`r clrs_lt[6]`"}
+![](images/RO'Reilly.png){fig-align="center" width="100%"}
+
+
+## *MYaseen208* {background-color="`r clrs_lt[6]`"}
+![](images/StackoverflowMYaseen208.png){fig-align="center" width="100%"}
+
+## *MYaseen208* {background-color="`r clrs_lt[6]`"}
+
+```{=html}
+<iframe width = "100%" height = "550" src = "https://myaseen208.com/software/" title = "https://myaseen208.com/"></iframe>
+```
+
+# *Introduction* {background-color="`r clrs_lt[1]`"}
+
+## *Introduction* {background-color="`r clrs_lt[6]`"}
+
+-   A software developed by [Statisticians]{.yellow} around the World
+-   [Free software]{.yellow}, released under the General Public License (GPL)
+-   [Open source]{.yellow}, [Very Flexible]{.yellow} & [makes you think]{.yellow}
+-   [19,366 freely available packages]{.yellow} (by 2023-04-18)
+
+## *Introduction* {background-color="`r clrs_lt[6]`"}
+
+-   An [Elegant]{.yellow} & [Comprehensive Statistical]{.yellow} & Graphical programming language
+-   Contains [Advanced Statistical routines]{.yellow}
+-   `R` & `LaTeX` work together - seamlessly
+-   [Automated]{.yellow} & [Reproducible Research]{.yellow}
+-   Good online [documentation]{.yellow}, [robust]{.yellow} & [vibrant community]{.yellow}
+
+## *History* {background-color="`r clrs_lt[6]`"}
+
+::: columns
+::: {.column width="60%"}
+-   `R` is a [dialect]{.yellow} of the `S` language
+-   `S` language was [developed]{.yellow} in [1976]{.yellow} by [John Chambers *et al.*]{.yellow} at [Bell Laboratories]{.yellow}
+:::
+
+::: {.column width="40%"}
+![](images/JohnChambers.jpeg){fig-align="center" width="100%"}
+:::
+:::
+
+## *History* {background-color="`r clrs_lt[6]`"}
+
+::: columns
+::: {.column width="50%"}
+![](images/RossIhaka.jpeg){fig-align="center" width="100%"}
+:::
+
+::: {.column width="50%"}
+![](images/RobertGentleman.jpeg){fig-align="center" width="100%"}
+:::
+:::
+
+## *History* {background-color="`r clrs_lt[6]`"}
+
+-   `R` was [created]{.yellow} in [1991]{.yellow} in [New Zealand]{.yellow} by [Ross Ihaka]{.yellow} & [Robert Gentleman]{.yellow} (R & R).
+
+-   Their experience developing `R` is documented in a [1996 JCGS paper]{.yellow}.
+
+-   [Martin Machler]{.yellow} convinced Ross & Robert to use the GNU General Public License (GPL) [to make `R` free software]{.yellow}.
+
+-   Since [1997]{.yellow}, International `R`-core team & 1000s of code writers and Statisticians happy to share their libraries! [Awesome!]{.yellow}
+
+# *`R` Core Team* {background-color="`r clrs_lt[1]`"}
+
+## *`R` Core Team* {.small background-color="`r clrs_lt[6]`"}
+
+|                  |                  |                 |                    |
+|------------------|------------------|-----------------|--------------------|
+| Douglas Bates    | Ross Ihaka       | Thomas Lumley   | Brian Ripley       |
+| John Chambers    | Tomas Kalibera   | Martin Maechler | Deepayan Sarkar    |
+| Peter Dalgaard   | Michael Lawrence | Sebastian Meyer | Duncan Temple Lang |
+| Robert Gentleman | Friedrich Leisch | Paul Murrell    | Luke Tierney       |
+| Kurt Hornik      | Uwe Ligges       | Martyn Plummer  | Simon Urbanek      |
+
+## *Getting & Launncing `R`* {background-color="`r clrs_lt[6]`"}
+
+-   The main web site for the `R` Project: [www.r-project.org](www.r-project.org)
+
+-   Comprehensive R Archive Network (CRAN) primary site: <https://cran.r-project.org/>
+
+# *Capabilities of `R`* {background-color="`r clrs_lt[1]`"}
+
+## *Capabilities of `R`* {background-color="`r clrs_lt[6]`"}
+
+Provides a wide variety of statistical & graphical techniques, including:
+
+-   State-of-the-art & Publication quality graphs
+
+-   Classical Statistical Tests, ANOVA & Regression Analysis
+
+-   Generalized, Linear, Mixed & Nonlinear Models
+
+-   Time Series, Panel Data Analysis & Financial Data Modeling
+
+-   Multivariate Analysis & Structural Equation Modeling (SEM)
+
+-   Geographic Information System (GIS) & Spatial Analysis
+
+-   Bayesian Methods & many more.
+
+## *Capabilities of `R`* {background-color="`r clrs_lt[6]`"}
+
+
+```{r}
+#| out-width: 100%
+#| fig-height: 6
+library(leaflet)
+leaflet() %>% 
+  addTiles() %>% 
+  setView(lng = 73.0479, lat = 33.6844, zoom = 10)
+```
+
+
+## *Capabilities of `R`* {background-color="`r clrs_lt[6]`"}
+
+![](images/NormalDifferentMeans.png){fig-align="center" width="100%"}
+
+
+## *Capabilities of `R`* {background-color="`r clrs_lt[6]`"}
+
+![](images/NormalDifferentVariances.png){fig-align="center" width="100%"}
+
+## *Capabilities of `R`* {background-color="`r clrs_lt[6]`"}
+
+![](images/Normal68.png){fig-align="center" width="100%"}
+
+## *Capabilities of `R`* {background-color="`r clrs_lt[6]`"}
+
+![](images/Normal95.png){fig-align="center" width="100%"}
+
+## *Capabilities of `R`* {background-color="`r clrs_lt[6]`"}
+
+![](images/Normal99.png){fig-align="center" width="100%"}
+
+
+## *Capabilities of `R`* {background-color="`r clrs_lt[6]`"}
+
+![](images/BND1.png){fig-align="center" width="100%"}
+
+
+## *Capabilities of `R`* {background-color="`r clrs_lt[6]`"}
+
+![](images/BND2.png){fig-align="center" width="100%"}
+
+
+## *Capabilities of `R`* {background-color="`r clrs_lt[6]`"}
+
+![](images/p2.png){fig-align="center" width="100%"}
+
+## *Capabilities of `R`* {background-color="`r clrs_lt[6]`"}
+
+![](images/p4.png){fig-align="center" width="100%"}
+
+## *Capabilities of `R`* {background-color="`r clrs_lt[6]`"}
+
+![](images/figAsh2.png){fig-align="center" width="100%"}
+
+## *Capabilities of `R`* {background-color="`r clrs_lt[6]`"}
+
+![](images/ALB_p2.png){fig-align="center" width="100%"}
+
+## *Capabilities of `R`* {background-color="`r clrs_lt[6]`"}
+
+![](images/CIPI.png){fig-align="center" width="100%"}
+
+## *Capabilities of `R`* {background-color="`r clrs_lt[6]`"}
+
+![](images/PCAPlot.png){fig-align="center" width="100%"}
+
+## *Capabilities of `R`* {background-color="`r clrs_lt[6]`"}
+
+![](images/sa11.png){fig-align="center" width="100%"}
+
+## *Capabilities of `R`* {background-color="`r clrs_lt[6]`"}
+
+![](images/sa22.png){fig-align="center" width="100%"}
+
+## *Capabilities of `R`* {background-color="`r clrs_lt[6]`"}
+
+![](images/sa33.png){fig-align="center" width="100%"}
+
+## *Capabilities of `R`* {background-color="`r clrs_lt[6]`"}
+
+![](images/USAUnemployment.png){fig-align="center" width="100%"}
+
+
+
+
+
+# *Help on `R`* {background-color="`r clrs_lt[1]`"}
+
+## *Help on `R`* {background-color="`r clrs_lt[6]`"}
+
+Once `R` is installed, there is a comprehensive built-in help system. At the program's command prompt you can use any of the following:
+
+   
+
+```{r}
+#| echo: true
+#| eval: false
+help.start()   # general help
+help(foo)      # help about function foo
+?foo           # same thing
+apropos("foo") # list all functions containing string foo
+example(foo)   # show an example of function foo
+```
+
+# *Data in `R`* {background-color="`r clrs_lt[1]`"}
+
+## *Data in `R`* {background-color="`r clrs_lt[6]`"}
+
+There are many ways to get data into `R`. Few of them are:
+
+ 
+
+-   Entering directly through console
+
+-   Importing from an external file through `R` commands
+
+    -   `read.table`
+    -   `read.csv`
+    -   `read_excel` etc.
+
+# *Basic Operations* {background-color="`r clrs_lt[1]`"}
+
+## *Arithmetic Operations* {background-color="`r clrs_lt[6]`"}
+
+| Operator    | Description                   |
+|-------------|-------------------------------|
+| `+`         | Addition                      |
+| `-`         | Subtraction                   |
+| `*`         | Multiplication                |
+| `/`         | Division                      |
+| `^` or `**` | Exponentiation                |
+| `x%y`       | Modulus (x mod y) `5%2` is 1  |
+| `x%/%y`     | Integer Division `5%/%2` is 2 |
+|             |                               |
+
+
+
+## *Arithmetic Operations* {background-color="`r clrs_lt[6]`"}
+
+
+::: panel-tabset
+## Code
+
+```{r}
+#| echo: true
+#| output: false
+5 + 2
+5 - 2
+5 * 2
+5 / 2
+5 ^ 2
+5 %% 2
+5 %/% 2
+```
+
+## Output
+
+```{r}
+#| echo: true
+5 + 2
+5 - 2
+5 * 2
+5 / 2
+5 ^ 2
+5 %% 2
+5 %/% 2
+```
+:::
+
+
+# *Linear Models in `R`* {background-color="`r clrs_lt[1]`"}
+
+## *Linear Models* {background-color="`r clrs_lt[6]`"}
+
+```{r}
+#| output: asis
+library(SOfun)
+cat(helpExtract(Function = lm, section = "Description", type = "m_code"), sep = "\n")
+```
+
+$$\\[0.2in]$$
+
+```{r}
+#| output: asis
+library(SOfun)
+cat(helpExtract(lm), sep = "\n")
+```
+
+# *Generalized Linear Models in `R`* {background-color="`r clrs_lt[1]`"}
+
+## *Generalized Linear Models* {background-color="`r clrs_lt[6]`"}
+
+```{r}
+#| output: asis
+library(SOfun)
+cat(helpExtract(Function = glm, section = "Description", type = "m_code"), sep = "\n")
+```
+
+$$\\[0.2in]$$
+
+```{r}
+#| output: asis
+library(SOfun)
+cat(helpExtract(glm), sep = "\n")
+```
+
+# *Linear Mixed Models in `R`* {background-color="`r clrs_lt[1]`"}
+
+## *Linear Mixed Models* {background-color="`r clrs_lt[6]`"}
+
+```{r}
+#| output: asis
+library(SOfun)
+cat(helpExtract(Function = lmer, package = "lme4", section = "Description", type = "m_code"), sep = "\n")
+```
+
+$$\\[0.2in]$$
+
+```{r}
+#| output: asis
+library(lme4)
+library(SOfun)
+cat(helpExtract(lmer, package = "lme4"), sep = "\n")
+```
+
+# *Generalized Linear Mixed Models in `R`* {background-color="`r clrs_lt[1]`"}
+
+## *Generalized Linear Mixed Models* {background-color="`r clrs_lt[6]`"}
+
+```{r}
+#| output: asis
+library(SOfun)
+cat(helpExtract(Function = glmer, package = "lme4", section = "Description", type = "m_code"), sep = "\n")
+```
+
+$$\\[0.2in]$$
+
+```{r}
+#| output: asis
+library(lme4)
+library(SOfun)
+cat(helpExtract(glmer, package = "lme4"), sep = "\n")
+```
+
+
+# *References* {background-color="`r clrs_lt[1]`"}
+
+## *References* {background-color="`r clrs_lt[6]`"}
+
+
+```{r ref1, echo = FALSE, results = "asis"}
+PrintBibliography(myBib, .opts = list(bib.style = "authoryear"), start = 1, end = 4)
+```
